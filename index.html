@@ -1,0 +1,462 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Premium Apple Smart Watch</title>
+</head>
+
+<style>
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+
+    body {
+        background: radial-gradient(ellipse at center, #0f0f23 0%, #000000 100%);
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+        overflow: hidden;
+        position: relative;
+    }
+
+    /* Animated background stars */
+    body::before {
+        content: '';
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        background-image: 
+            radial-gradient(1px 1px at 25% 25%, rgba(255,255,255,0.8), transparent),
+            radial-gradient(1px 1px at 75% 75%, rgba(0,255,255,0.6), transparent),
+            radial-gradient(2px 2px at 50% 10%, rgba(255,0,255,0.4), transparent),
+            radial-gradient(1px 1px at 80% 20%, rgba(255,255,0,0.5), transparent),
+            radial-gradient(1px 1px at 20% 80%, rgba(255,255,255,0.7), transparent);
+        background-size: 300px 300px, 400px 400px, 200px 200px, 350px 350px, 250px 250px;
+        animation: starsMove 25s linear infinite;
+    }
+
+    @keyframes starsMove {
+        0% { transform: translate(0, 0) rotate(0deg); }
+        100% { transform: translate(-50px, -50px) rotate(360deg); }
+    }
+
+    .watch-container {
+        position: relative;
+        width: 380px;
+        height: 380px;
+        background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+        border-radius: 25% 75% 25% 75%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        box-shadow: 
+            0 0 80px rgba(0,255,255,0.3),
+            0 0 120px rgba(255,0,255,0.2),
+            inset 0 0 60px rgba(255,255,255,0.05),
+            0 20px 40px rgba(0,0,0,0.5);
+        animation: watchFloat 6s ease-in-out infinite, watchRotate 20s linear infinite;
+        border: 3px solid transparent;
+        background-clip: padding-box;
+        position: relative;
+    }
+
+    .watch-container::before {
+        content: '';
+        position: absolute;
+        top: -3px;
+        left: -3px;
+        right: -3px;
+        bottom: -3px;
+        background: linear-gradient(45deg, #ff0080, #00ffff, #ff8000, #8000ff);
+        border-radius: 25% 75% 25% 75%;
+        z-index: -1;
+        animation: borderGlow 3s ease-in-out infinite alternate;
+    }
+
+    @keyframes borderGlow {
+        0% { opacity: 0.5; }
+        100% { opacity: 1; }
+    }
+
+    @keyframes watchFloat {
+        0%, 100% { transform: translateY(0px) scale(1); }
+        50% { transform: translateY(-10px) scale(1.02); }
+    }
+
+    @keyframes watchRotate {
+        0% { filter: hue-rotate(0deg); }
+        100% { filter: hue-rotate(360deg); }
+    }
+
+    /* Apple logo with neon effect */
+    .watch-container::after {
+        content: '';
+        position: absolute;
+        width: 60px;
+        height: 60px;
+        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='rgba(255,255,255,0.15)'%3E%3Cpath d='M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.81-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z'/%3E%3C/svg%3E");
+        background-size: contain;
+        background-repeat: no-repeat;
+        background-position: center;
+        top: 20px;
+        left: 50%;
+        transform: translateX(-50%);
+        filter: drop-shadow(0 0 10px rgba(255,255,255,0.5));
+        animation: logoNeon 4s ease-in-out infinite;
+    }
+
+    @keyframes logoNeon {
+        0%, 100% { 
+            filter: drop-shadow(0 0 10px rgba(255,255,255,0.5));
+            opacity: 0.6;
+        }
+        50% { 
+            filter: drop-shadow(0 0 20px rgba(0,255,255,0.8));
+            opacity: 1;
+        }
+    }
+
+    .watch-face {
+        position: relative;
+        width: 320px;
+        height: 320px;
+        background: radial-gradient(circle at 30% 30%, rgba(255,255,255,0.1) 0%, transparent 50%),
+                    linear-gradient(135deg, #0a0a0a 0%, #1a1a2e 50%, #16213e 100%);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        box-shadow: 
+            inset 0 0 50px rgba(0,0,0,0.8),
+            inset 0 0 100px rgba(255,255,255,0.05),
+            0 0 30px rgba(0,255,255,0.2);
+        border: 2px solid rgba(0,255,255,0.3);
+        overflow: hidden;
+    }
+
+    /* Hexagonal time markers */
+    .time-markers {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        border-radius: 50%;
+    }
+
+    .marker {
+        position: absolute;
+        width: 4px;
+        height: 20px;
+        background: linear-gradient(45deg, #00ffff, #ff00ff);
+        border-radius: 2px;
+        transform-origin: 2px 160px;
+        box-shadow: 0 0 10px rgba(0,255,255,0.5);
+    }
+
+    .marker:nth-child(1) { transform: rotate(0deg); }
+    .marker:nth-child(2) { transform: rotate(30deg); }
+    .marker:nth-child(3) { transform: rotate(60deg); }
+    .marker:nth-child(4) { transform: rotate(90deg); }
+    .marker:nth-child(5) { transform: rotate(120deg); }
+    .marker:nth-child(6) { transform: rotate(150deg); }
+    .marker:nth-child(7) { transform: rotate(180deg); }
+    .marker:nth-child(8) { transform: rotate(210deg); }
+    .marker:nth-child(9) { transform: rotate(240deg); }
+    .marker:nth-child(10) { transform: rotate(270deg); }
+    .marker:nth-child(11) { transform: rotate(300deg); }
+    .marker:nth-child(12) { transform: rotate(330deg); }
+
+    /* Animated rings */
+    .ring {
+        position: absolute;
+        border: 1px solid rgba(0,255,255,0.2);
+        border-radius: 50%;
+        animation: ringPulse 4s ease-in-out infinite;
+    }
+
+    .ring:nth-child(1) {
+        width: 280px;
+        height: 280px;
+        animation-delay: 0s;
+    }
+
+    .ring:nth-child(2) {
+        width: 240px;
+        height: 240px;
+        animation-delay: 1s;
+        border-color: rgba(255,0,255,0.2);
+    }
+
+    .ring:nth-child(3) {
+        width: 200px;
+        height: 200px;
+        animation-delay: 2s;
+        border-color: rgba(255,255,0,0.2);
+    }
+
+    @keyframes ringPulse {
+        0%, 100% { 
+            transform: scale(1);
+            opacity: 0.3;
+        }
+        50% { 
+            transform: scale(1.05);
+            opacity: 0.8;
+        }
+    }
+
+    .soan {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 12px;
+        z-index: 10;
+        position: relative;
+        background: rgba(0,0,0,0.3);
+        padding: 20px 30px;
+        border-radius: 25px;
+        backdrop-filter: blur(10px);
+        border: 1px solid rgba(255,255,255,0.1);
+        box-shadow: 0 8px 32px rgba(0,0,0,0.3);
+    }
+
+    .soan span {
+        color: #ffffff;
+        font-size: 2.8rem;
+        font-weight: 200;
+        text-shadow: 
+            0 0 20px rgba(0,255,255,0.8),
+            0 0 40px rgba(255,0,255,0.4);
+        animation: textGlow 3s ease-in-out infinite alternate;
+        transition: all 0.3s ease;
+        font-family: 'SF Pro Display', -apple-system, sans-serif;
+    }
+
+    @keyframes textGlow {
+        0% { 
+            text-shadow: 
+                0 0 20px rgba(0,255,255,0.8),
+                0 0 40px rgba(255,0,255,0.4);
+        }
+        100% { 
+            text-shadow: 
+                0 0 30px rgba(0,255,255,1),
+                0 0 60px rgba(255,0,255,0.6),
+                0 0 80px rgba(255,255,255,0.3);
+        }
+    }
+
+    #hour, #min, #sec {
+        background: linear-gradient(45deg, #00ffff, #ff00ff, #ffff00);
+        background-size: 200% 200%;
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        font-weight: 300;
+        animation: gradientShift 4s ease-in-out infinite;
+        position: relative;
+    }
+
+    @keyframes gradientShift {
+        0%, 100% { background-position: 0% 50%; }
+        50% { background-position: 100% 50%; }
+    }
+
+    #hour::after, #min::after, #sec::after {
+        content: attr(data-text);
+        position: absolute;
+        top: 0;
+        left: 0;
+        background: linear-gradient(45deg, #00ffff, #ff00ff);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        filter: blur(2px);
+        z-index: -1;
+        animation: blurGlow 2s ease-in-out infinite alternate;
+    }
+
+    @keyframes blurGlow {
+        0% { opacity: 0.5; filter: blur(2px); }
+        100% { opacity: 0.8; filter: blur(4px); }
+    }
+
+    #ampm {
+        font-size: 1.4rem;
+        color: #ffff00;
+        font-weight: 400;
+        text-shadow: 
+            0 0 15px rgba(255,255,0,0.8),
+            0 0 30px rgba(255,255,0,0.4);
+        animation: ampmNeon 2s ease-in-out infinite alternate;
+        background: rgba(255,255,0,0.1);
+        padding: 5px 10px;
+        border-radius: 15px;
+        border: 1px solid rgba(255,255,0,0.3);
+    }
+
+    @keyframes ampmNeon {
+        0% { 
+            text-shadow: 
+                0 0 15px rgba(255,255,0,0.8),
+                0 0 30px rgba(255,255,0,0.4);
+            box-shadow: 0 0 10px rgba(255,255,0,0.3);
+        }
+        100% { 
+            text-shadow: 
+                0 0 25px rgba(255,255,0,1),
+                0 0 50px rgba(255,255,0,0.6);
+            box-shadow: 0 0 20px rgba(255,255,0,0.5);
+        }
+    }
+
+    .soan span:nth-child(2),
+    .soan span:nth-child(4) {
+        color: #ffffff;
+        animation: colonPulse 1s ease-in-out infinite;
+        font-size: 3rem;
+        text-shadow: 0 0 20px rgba(255,255,255,0.8);
+    }
+
+    @keyframes colonPulse {
+        0%, 50% { 
+            opacity: 1; 
+            transform: scale(1);
+            text-shadow: 0 0 20px rgba(255,255,255,0.8);
+        }
+        51%, 100% { 
+            opacity: 0.3; 
+            transform: scale(0.8);
+            text-shadow: 0 0 10px rgba(255,255,255,0.4);
+        }
+    }
+
+    /* Premium side elements */
+    .digital-crown {
+        position: absolute;
+        right: -20px;
+        top: 45%;
+        width: 40px;
+        height: 50px;
+        background: linear-gradient(135deg, #2c3e50, #34495e, #2c3e50);
+        border-radius: 20px;
+        box-shadow: 
+            0 10px 25px rgba(0,0,0,0.5),
+            inset 0 2px 10px rgba(255,255,255,0.1),
+            0 0 20px rgba(0,255,255,0.2);
+        animation: crownGlow 3s ease-in-out infinite alternate;
+    }
+
+    @keyframes crownGlow {
+        0% { box-shadow: 0 10px 25px rgba(0,0,0,0.5), inset 0 2px 10px rgba(255,255,255,0.1), 0 0 20px rgba(0,255,255,0.2); }
+        100% { box-shadow: 0 15px 35px rgba(0,0,0,0.7), inset 0 3px 15px rgba(255,255,255,0.15), 0 0 30px rgba(0,255,255,0.4); }
+    }
+
+    .side-button {
+        position: absolute;
+        right: -15px;
+        top: 30%;
+        width: 30px;
+        height: 35px;
+        background: linear-gradient(135deg, #34495e, #2c3e50);
+        border-radius: 15px;
+        box-shadow: 
+            0 8px 20px rgba(0,0,0,0.4),
+            inset 0 2px 8px rgba(255,255,255,0.1),
+            0 0 15px rgba(255,0,255,0.2);
+    }
+
+    /* Responsive design */
+    @media (max-width: 480px) {
+        .watch-container {
+            width: 320px;
+            height: 320px;
+        }
+        
+        .watch-face {
+            width: 280px;
+            height: 280px;
+        }
+        
+        .soan span {
+            font-size: 2.2rem;
+        }
+        
+        #ampm {
+            font-size: 1.1rem;
+        }
+    }
+</style>
+
+<body>
+    <div class="watch-container">
+        <div class="digital-crown"></div>
+        <div class="side-button"></div>
+        <div class="watch-face">
+            <div class="ring"></div>
+            <div class="ring"></div>
+            <div class="ring"></div>
+            <div class="time-markers">
+                <div class="marker"></div>
+                <div class="marker"></div>
+                <div class="marker"></div>
+                <div class="marker"></div>
+                <div class="marker"></div>
+                <div class="marker"></div>
+                <div class="marker"></div>
+                <div class="marker"></div>
+                <div class="marker"></div>
+                <div class="marker"></div>
+                <div class="marker"></div>
+                <div class="marker"></div>
+            </div>
+            <div class="soan">
+                <span id="hour">00</span>
+                <span>:</span>
+                <span id="min">00</span>
+                <span>:</span>
+                <span id="sec">00</span>
+                <span id="ampm">AM</span>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let hour = document.getElementById("hour")
+        let min = document.getElementById("min")
+        let sec = document.getElementById("sec")
+        let ampm = document.getElementById("ampm")
+
+        setInterval(() => {
+            let currenttime = new Date()
+            let h = currenttime.getHours()
+            let m = currenttime.getMinutes()
+            let s = currenttime.getSeconds()
+            let session = "AM"
+
+            if (h >= 12) {
+                session = "PM"
+            }
+
+            if (h == 0) {
+                h = 12
+            } else if (h > 12) {
+                h = h - 12
+            }
+
+            // Pad single digits with 0
+            h = h < 10 ? "0" + h : h
+            m = m < 10 ? "0" + m : m
+            s = s < 10 ? "0" + s : s
+
+            hour.textContent = h
+            min.textContent = m
+            sec.textContent = s
+            ampm.textContent = session
+        }, 1000);
+    </script>
+</body>
+</html>
